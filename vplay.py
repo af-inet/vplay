@@ -5,6 +5,10 @@ import re
 import argparse
 import os
 
+## notes
+# pause can be done by counting
+# how long a song has been playing
+
 def parse_args():
 	parser = argparse.ArgumentParser("vplay")
 	
@@ -48,12 +52,14 @@ def run(cmd): return subprocess.check_output(cmd, shell=True)
 
 # kill all existing instances of vlc
 def kill_vlc():
-	try: run("pkill -f vlc")
+	try: 
+		run("pkill screen")
+		run("pkill vlc")
 	except: pass
 
 # run VLC, pipe output to null
 def run_vlc(args): 
-	run("vlc -Irc " + args + " " + "2>&1 /dev/null")
+	run("screen -m -d cvlc -Irc " + args + " &")
 
 # Play song/album
 def play_vlc(args):
