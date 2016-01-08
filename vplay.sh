@@ -1,2 +1,3 @@
-args="$@"
-python ~/Documents/github/vplay/vplay.py "$args"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+ARGS="$@"
+python $DIR/vplay.py "$ARGS"

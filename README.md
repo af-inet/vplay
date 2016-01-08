@@ -28,7 +28,7 @@ If an album is found, `vplay` will play it.
 ## usage
 
 
-`vplay <song/album title` to start playing a song or album
+`vplay <song/album title>` to start playing a song or album
 
 
 `vplay -x` to stop playing
@@ -70,4 +70,10 @@ https://help.ubuntu.com/community/Screen
 ## add `vplay` as a bash alias
 
 
-`cat bash_settings >> ~/.bashrc`
+open up your `~/.bashrc`
+
+
+append `alias vplay="bash <wherever you installed>/vplay.sh"`
+
+
+otherwise you'll need to type `python <wherever you installed>/vplay <title>` every time you want to play something.
