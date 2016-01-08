@@ -13,10 +13,11 @@ def parse_args():
 	parser = argparse.ArgumentParser("vplay")
 	
 	parser.add_argument(
-		"match",
+		"title",
 		type=str,
 		help="name of a song/album",
-		default=None
+		default=None,
+		nargs="?"
 	)
 	
 	parser.add_argument(
@@ -114,8 +115,11 @@ def main():
 	elif args.stop:
 		kill_vlc()
 	else:
-		match = args.match
-		kill_vlc()
-		search(match)
+		if (args.title is None) or (args.title == ""):
+			print("[vplay] no title specified")
+		else:
+			match = args.title
+			kill_vlc()
+			search(match)
 
 main()
