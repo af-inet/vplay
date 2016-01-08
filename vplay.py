@@ -9,6 +9,8 @@ import os
 # pause can be done by counting
 # how long a song has been playing
 
+FOLDER = "~/Music"
+
 def parse_args():
 	parser = argparse.ArgumentParser("vplay")
 	
@@ -68,22 +70,22 @@ def play_vlc(args):
 	run_vlc('"' + args + '"')
 
 # Return a list of songs
-def songs(): return run("ls ~/Music/*/*")
+def songs(): return run("ls "+FOLDER+"/*/*")
 
-# Returns a list of folders
-def folders(): return run("ls ~/Music/*/").split("\n")[:-1]
+# Returns a list of FOLDERs
+def FOLDERs(): return run("ls "+FOLDER+"/*/").split("\n")[:-1]
 
 # Find a songs absolute path
-def get_song(match): return re.sub("\n", "", run('find ~/Music/* | grep "' + match + '"'))
+def get_song(match): return re.sub("\n", "", run('find '+FOLDER+'/* | grep "' + match + '"'))
 
-# Find a folder
-def find_folder(match):
-	try:    return re.sub("\n","",run('find ~/Music/*/ | grep -m1 -i ' + match))
+# Find a FOLDER
+def find_FOLDER(match):
+	try:    return re.sub("\n","",run('find '+FOLDER+'/*/ | grep -m1 -i ' + match))
 	except: return None
 
 # Find a song
 def find_song(match):
-	try:    return re.sub("\n","",run('find ~/Music/* -type f -printf "%f\n" | grep -m1 -i ' + match))
+	try:    return re.sub("\n","",run('find '+FOLDER+'/* -type f -printf "%f\n" | grep -m1 -i ' + match))
 	except: return None
 
 
@@ -100,7 +102,7 @@ def search(match):
 		path = get_song(name)
 		play_vlc(path)
 	else:
-		path = find_folder(match)
+		path = find_FOLDER(match)
 		if path is not None:
 			play_vlc(path)
 	
@@ -109,9 +111,9 @@ def main():
 	args = parse_args()
 	
 	if args.print_albums:
-		print(run("ls ~/Music/"))
+		print(run("ls "+FOLDER+"/"))
 	elif args.print_songs:
-		print(run("find ~/Music/*"))
+		print(run("find "+FOLDER+"/*"))
 	elif args.stop:
 		kill_vlc()
 	else:
